@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     # * External Packages
     "rest_framework",
     # * Interal Apps
+    "barda.product",
 ]
 
 MIDDLEWARE = [
@@ -59,12 +60,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "barda.wsgi.application"
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 
 # Password validation
