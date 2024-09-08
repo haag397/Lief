@@ -9,7 +9,6 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
-
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -26,7 +25,8 @@ INSTALLED_APPS = [
     # * External Packages
     "rest_framework",
     # * Interal Apps
-    "barda.app",
+    "barda.core",
+    "barda.authenticate",
 ]
 
 MIDDLEWARE = [

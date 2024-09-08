@@ -1,12 +1,12 @@
 """
 create model for admin, user, rules
 """
-
 from django.db import models
 from nanoid import generate
 
-# * use nanoID
+
 def generate_nanoid():
+    """use nanoID"""
     return generate(size=10)
 
 
@@ -28,7 +28,7 @@ class Rules(models.Model):
     )
 
     def __str__(self):
-        return self.id
+        return self.rule_name
 
 
 class AdminData(models.Model):
@@ -50,9 +50,7 @@ class AdminData(models.Model):
     last_name = models.CharField(max_length=30, blank=False)
     date_joined = models.DateTimeField(auto_now_add=True)
     last_edit = models.DateTimeField(auto_now=True, blank=True)
-    rule_id = models.ForeignKey(
-        Rules, on_delete=models.CASCADE, null=True
-    )  # Use 'id' as foreign key by default
+    rule_name = models.ForeignKey(Rules, on_delete=models.CASCADE, null=True)
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["username", "password", "email", "lastname"]

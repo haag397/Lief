@@ -2,9 +2,8 @@
 """
 
 from django.core.management.base import BaseCommand
-from barda.app.models import AdminData, Rules
 from django.db import DatabaseError
-import time
+from barda.core.models import AdminData, Rules
 
 
 def check_table_exists(model_name):
@@ -23,11 +22,9 @@ class Command(BaseCommand):
     help = "Create a default rule and admin"
 
     def handle(self, *args, **kwargs):
-        # * wait to table created
-        time.sleep(4)
+        # * check rules table exist
+        while check_table_exists(Rules):
 
-        # * Check if the Rules table exists
-        if check_table_exists(Rules):
             if not Rules.objects.filter(rule_name="Owner").exists():
                 # * Create a rule if it does not exist
                 Rules.objects.create(
@@ -39,14 +36,15 @@ class Command(BaseCommand):
                 )
             else:
                 self.stdout.write(self.style.WARNING("Rule already exists"))
+            break
         else:
             print("Rule table does not exist.")
 
-        rule_ins = Rules.objects.get(rule_name="Owner")
-        print(rule_ins.id)
-        # * Check if the AdminData table exists
-        if check_table_exists(AdminData):
-            print("Admin table exist.")
+        # * check admindata table exist
+        while check_table_exists(AdminData):
+            # * get rule instance for foreign key
+            rule_ins = Rules.objects.get(rule_name="Owner")
+
             if not AdminData.objects.filter(username="hawork").exists():
                 # * Create a admin if it does not exist
                 AdminData.objects.create(
@@ -54,12 +52,13 @@ class Command(BaseCommand):
                     password="zxcZ@123",
                     email="aghili@work.co",
                     last_name="eze",
-                    rule_id=rule_ins,
+                    rule_name=rule_ins,
                 )
                 self.stdout.write(
                     self.style.SUCCESS("Successfully created a new admin")
                 )
             else:
                 self.stdout.write(self.style.WARNING("Admin already exists"))
+            break
         else:
             print("Admin table does not exist.")

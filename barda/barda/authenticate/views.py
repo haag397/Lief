@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from barda.app.models import AdminData
-from barda.app.serializers import AdminDataSerializer
+from barda.core.models import AdminData
+from barda.core.serializers import AdminDataSerializer
 
 
 class AdminDataViewSet(viewsets.ModelViewSet):
