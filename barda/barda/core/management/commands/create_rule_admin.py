@@ -52,7 +52,7 @@ class Command(BaseCommand):
                     password="zxcZ@123",
                     email="aghili@work.co",
                     last_name="eze",
-                    rule_name=rule_ins,
+                    rule_id=rule_ins,
                 )
                 self.stdout.write(
                     self.style.SUCCESS("Successfully created a new admin")
